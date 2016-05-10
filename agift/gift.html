@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>A small gift to Miss Xiang</title>
+<style>
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: #000000;
+	margin: 0;
+	font-family: Helvetica, sans-serif;;
+	overflow: hidden;
+}
+
+a {
+	color: #ffffff;
+}
+
+#info {
+	position: absolute;
+	width: 100%;
+	color: #ffffff;
+	padding: 5px;
+	font-family: Monospace;
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+	z-index: 1;
+}
+
+#menu {
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	text-align: center;
+	font-family: verdana,Tahoma,Arial,Hei,"Microsoft Yahei",SimHei;
+}
+
+.element {
+	width: 120px;
+	height: 160px;
+	box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+	border: 1px solid rgba(127,255,255,0.25);
+	text-align: center;
+	cursor: default;
+}
+
+.element:hover {
+	box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+	border: 1px solid rgba(127,255,255,0.75);
+}
+
+	.element .number {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		font-size: 12px;
+		color: rgba(127,255,255,0.75);
+	}
+
+	.element .symbol {
+		position: absolute;
+		top: 40px;
+		left: 0px;
+		right: 0px;
+		font-size: 60px;
+		font-weight: bold;
+		color: rgba(255,255,255,0.75);
+		text-shadow: 0 0 10px rgba(0,255,255,0.95);
+	}
+
+	.element .details {
+		position: absolute;
+		bottom: 15px;
+		left: 0px;
+		right: 0px;
+		font-size: 12px;
+		color: rgba(127,255,255,0.75);
+	}
+
+button {
+	color: rgba(127,255,255,0.75);
+	background: transparent;
+	outline: 1px solid rgba(127,255,255,0.75);
+	border: 0px;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+button:hover {
+	background-color: rgba(0,255,255,0.5);
+}
+button:active {
+	color: #000000;
+	background-color: rgba(0,255,255,0.75);
+}
+</style>
+</head>
+<body>
+ <embed src="js/music/music.mp3" hidden="true" autostart="true" loop="true">
+<script src="js/平面.js" ></script>
+<script src="js/球面.js" ></script>
+<script src="js/螺旋.js" ></script>
+<script src="js/网格.js" ></script>
+
+<div id="container"></div>
+<div id="info">时光の书</div>
+<div id="menu">
+<button ></button>
+<button id="table">平面</button>
+<button id="sphere">球面</button>
+<button id="helix">螺旋</button>
+<button id="grid">网格</button>
+<a href="http://user.qzone.qq.com/839997175/main?mode=gfp_timeline"  target="_blank">
+<button >时光轴の时</button></a>
+<a href="http://user.qzone.qq.com/850564082/photo/V14RqVoC0ZxpeY/batchid/1461305921970000"  target="_blank">
+<button >时光轴の册</button></a>
+<a href="js/photo.html"  target="_blank">
+<button ></button></a>
+</div>
+
+<script>
+
+var table = [
+	"大", "", "", 1, 2,
+	"笨", "", "", 2, 2,
+	"象：", "", "", 3, 2,
+	"也", "big", "", 3, 3,
+	"许", "", "", 4, 3,
+	"还", "", "", 5, 3,
+	"很", "", "", 6, 3,
+	"清", "", "", 7, 3,
+	"醒，", "", "", 8, 3,
+	"清", "", "", 9, 3,
+	"醒", "", "", 10, 3,
+	"地", "", "", 11, 3,
+	"看", "", "", 12, 3,
+	"着", "", "", 13, 3,
+	"自", "", "", 14, 3,
+	"己", "", "", 15, 3,
+	"越", "", "", 16, 3,
+	"陷", "", "", 17, 3,
+	"越", "", "", 18, 3,
+	"深", "", "", 1, 4,
+	"的", "", "", 2, 4,
+	"沉", "", "", 3, 4,
+	"沦;", "", "", 4, 4,
+	"才", "elephant", "", 5, 4,
+	"会", "", "", 6, 4,
+	"傻", "", "", 7, 4,
+	"得", "", "", 8, 4,
+	"用", "", "", 9, 4,
+	"天", "", "", 10, 4,
+	"真", "", "", 11, 4,
+	"去", "", "", 12, 4,
+	"触", "", "", 13, 4,
+	"碰", "", "", 14, 4,
+	"不", "", "", 15, 4,
+	"安", "", "", 16, 4,
+	"的", "", "", 17, 4,
+	"灵", "", "", 18, 4,
+	"魂。", "", "", 1, 5,
+	"挫", "", "#", 2, 5,
+	"折", "", "", 3, 5,
+	"让", "", "", 4, 5,
+	"一", "", "", 5, 5,
+	"些", "", "", 6, 5,
+	"人", "", "", 7, 5,
+	"一", "", "", 8, 5,
+	"蹶", "", "", 9, 5,
+	"不", "", "", 10, 5,
+	"振，", "", "", 11, 5,
+	"却", "", "", 12, 5,
+	"可", "", "", 13, 5,
+	"以", "", "", 14, 5,
+	"让", "", "", 15, 5,
+	"另", "", "", 16, 5,
+	"外", "", "", 17, 5,
+	"一", "", "", 18, 5,
+	"些", "", "", 1, 6,
+	"人", "", "", 2, 6,
+	"内", "", "", 3, 6,
+	"心", "", "", 4, 6,
+	"更", "", "", 5, 6,
+	"加", "", "", 6, 6,
+	"强", "", "", 7, 6,
+	"大，", "", "", 8, 6,
+	"为", "", "", 9, 6,
+	"阅", "", "", 10, 6,
+	"历", "", "", 11, 6,
+	"添", "", "", 12, 6,
+	"辉", "", "1", 13, 6,
+	"一", "", "", 14, 6,
+	"笔。", "", "", 15, 6,
+	"原", "", "", 16, 6,
+	"来", "", "", 17, 6,
+	"那", "", "", 18, 6,
+	"份", "", "", 1, 7,
+	"成", "", "", 2, 7,
+	"熟、", "", "", 3, 7,
+	"稳", "", "", 4, 7,
+	"重，", "", "", 5, 7,
+	"是", "", "", 6, 7,
+	"一", "", "", 7, 7,
+	"个", "", "", 8, 7,
+	"人", "", "", 9, 7,
+	"的", "", "", 10, 7,
+	"循", "", "",11, 7,
+	"序", "", "", 12, 7,
+	"渐", "", "", 13, 7,
+	"进。", "", "",14, 7,
+	"日", "", "", 15, 7,
+	"积", "", "", 16, 7,
+	"月", "", "", 17, 7,
+	"累。", "", "", 18, 7,
+	"生", "Happy", "", 1, 8,
+	"日", "birthday", "", 2, 8,
+	"快", "to", "", 3, 8,
+	"乐！", "you!", "", 4, 8,
+	"大", "Happy", "", 5, 8,
+	"笨", "every", "", 6, 8,
+	"象！", "day!", "", 7, 8,
+	"Best", "", "", 8, 8,
+	"wish", "", "", 9, 8,
+	"to", "", "", 10, 8,
+	"you", "", "", 11, 8,
+	"!", "", "", 12, 8,
+	"by", "", "", 16, 9,
+	"Mr", "", "", 17, 9,
+	"Tang", "", "", 18, 9,
+];
+
+var camera, scene, renderer;
+var controls;
+
+var objects = [];
+var targets = { table: [], sphere: [], helix: [], grid: [] };
+
+init();
+animate();
+
+function init() {
+
+	camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+	camera.position.z = 3000;
+
+	scene = new THREE.Scene();
+
+	// table
+
+	for ( var i = 0; i < table.length; i += 5 ) {
+
+		var element = document.createElement( 'div' );
+		element.className = 'element';
+		element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
+
+		var number = document.createElement( 'div' );
+		number.className = 'number';
+		number.textContent = (i/5) + 1;
+		element.appendChild( number );
+
+		var symbol = document.createElement( 'div' );
+		symbol.className = 'symbol';
+		symbol.textContent = table[ i ];
+		element.appendChild( symbol );
+
+		var details = document.createElement( 'div' );
+		details.className = 'details';
+		details.innerHTML = table[ i + 1 ] + '<br>' + table[ i + 2 ];
+		element.appendChild( details );
+
+		var object = new THREE.CSS3DObject( element );
+		object.position.x = Math.random() * 4000 - 2000;
+		object.position.y = Math.random() * 4000 - 2000;
+		object.position.z = Math.random() * 4000 - 2000;
+		scene.add( object );
+
+		objects.push( object );
+
+		//
+
+		var object = new THREE.Object3D();
+		object.position.x = ( table[ i + 3 ] * 140 ) - 1330;
+		object.position.y = - ( table[ i + 4 ] * 180 ) + 990;
+
+		targets.table.push( object );
+
+	}
+
+	// sphere
+
+	var vector = new THREE.Vector3();
+
+	for ( var i = 0, l = objects.length; i < l; i ++ ) {
+
+		var phi = Math.acos( -1 + ( 2 * i ) / l );
+		var theta = Math.sqrt( l * Math.PI ) * phi;
+
+		var object = new THREE.Object3D();
+
+		object.position.x = 800 * Math.cos( theta ) * Math.sin( phi );
+		object.position.y = 800 * Math.sin( theta ) * Math.sin( phi );
+		object.position.z = 800 * Math.cos( phi );
+
+		vector.copy( object.position ).multiplyScalar( 2 );
+
+		object.lookAt( vector );
+
+		targets.sphere.push( object );
+
+	}
+
+	// helix
+
+	var vector = new THREE.Vector3();
+
+	for ( var i = 0, l = objects.length; i < l; i ++ ) {
+
+		var phi = i * 0.175 + Math.PI;
+
+		var object = new THREE.Object3D();
+
+		object.position.x = 900 * Math.sin( phi );
+		object.position.y = - ( i * 8 ) + 450;
+		object.position.z = 900 * Math.cos( phi );
+
+		vector.x = object.position.x * 2;
+		vector.y = object.position.y;
+		vector.z = object.position.z * 2;
+
+		object.lookAt( vector );
+
+		targets.helix.push( object );
+
+	}
+
+	// grid
+
+	for ( var i = 0; i < objects.length; i ++ ) {
+
+		var object = new THREE.Object3D();
+
+		object.position.x = ( ( i % 5 ) * 400 ) - 800;
+		object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
+		object.position.z = ( Math.floor( i / 25 ) ) * 1000 - 2000;
+
+		targets.grid.push( object );
+
+	}
+
+	//
+
+	renderer = new THREE.CSS3DRenderer();
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.domElement.style.position = 'absolute';
+	document.getElementById( 'container' ).appendChild( renderer.domElement );
+
+	//
+
+	controls = new THREE.TrackballControls( camera, renderer.domElement );
+	controls.rotateSpeed = 0.5;
+	controls.minDistance = 500;
+	controls.maxDistance = 6000;
+	controls.addEventListener( 'change', render );
+
+	var button = document.getElementById( 'table' );
+	button.addEventListener( 'click', function ( event ) {
+
+		transform( targets.table, 2000 );
+
+	}, false );
+
+	var button = document.getElementById( 'sphere' );
+	button.addEventListener( 'click', function ( event ) {
+
+		transform( targets.sphere, 2000 );
+
+	}, false );
+
+	var button = document.getElementById( 'helix' );
+	button.addEventListener( 'click', function ( event ) {
+
+		transform( targets.helix, 2000 );
+
+	}, false );
+
+	var button = document.getElementById( 'grid' );
+	button.addEventListener( 'click', function ( event ) {
+
+		transform( targets.grid, 2000 );
+
+	}, false );
+
+	transform( targets.table, 5000 );
+
+	//
+
+	window.addEventListener( 'resize', onWindowResize, false );
+
+}
+
+function transform( targets, duration ) {
+
+	TWEEN.removeAll();
+
+	for ( var i = 0; i < objects.length; i ++ ) {
+
+		var object = objects[ i ];
+		var target = targets[ i ];
+
+		new TWEEN.Tween( object.position )
+			.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+			.easing( TWEEN.Easing.Exponential.InOut )
+			.start();
+
+		new TWEEN.Tween( object.rotation )
+			.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+			.easing( TWEEN.Easing.Exponential.InOut )
+			.start();
+
+	}
+
+	new TWEEN.Tween( this )
+		.to( {}, duration * 2 )
+		.onUpdate( render )
+		.start();
+
+}
+
+function onWindowResize() {
+
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+
+	renderer.setSize( window.innerWidth, window.innerHeight );
+
+	render();
+
+}
+
+function animate() {
+
+	requestAnimationFrame( animate );
+
+	TWEEN.update();
+
+	controls.update();
+
+}
+
+function render() {
+
+	renderer.render( scene, camera );
+
+}
+
+</script>
+</body>
+</html>
