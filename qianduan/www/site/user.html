@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="user-scalable=0"/>
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="telephone=no" name="format-detection"/>
+<title>智慧社区家政服务平台 </title>
+<link type="text/css" rel="stylesheet" href="../../css/base.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/style.css"/>
+<link rel="stylesheet" href="../../js/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="../../js/jq.js"></script>
+<script src="../../js/jquery-ui.js"></script>
+<script src="../../js/zh.js"></script>
+<script src="../../js/jqSelect.js"></script>
+</head>
+<body>
+     <!--header star-->
+<div class="header">
+	<div class="warp">
+		<a href="../../index.html"  class="left">
+		    <img height="70" width="230"src="../../uploads/item/151112-105545-6336.png">
+		</a>
+		
+  <div >
+    <div></div>
+    <div class="city-select cut_handdler Left">
+ 	  <a href="user.html" class="common-bg selector">居民登录</a>
+      <a href="user.html" class="common-bg selector">家政服务公司登录</a>
+      <a href="../../design.html" class="common-bg selector">家政服务公司注册</a>
+      <div>
+        <div>
+          <div class="showPanel showPanel2 clearfix">
+            <div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="common-bg city-logo"></span>
+  </div>
+		
+	<script type="text/javascript">
+	var words = 'ABCDEFGHJKLMNPQRSTWXYZ';
+	var hot  = [];
+	var domain = [];
+	hot.push('主站');domain.push('jiazheng');hot.push('威尼斯小区');domain.push('venice');    var data = [];
+    var TIP = '输入城市名';
+    jQuery (function ($)
+    {
+    	var search = $(':text#JS_search_city_input_header');
+    	search.focus(function () 
+    	{
+    		$(this).val('');
+    	});
+    	
+    	var box = $('div#JS_header_city_bar_box');
+    	var choose = $('a.common-bg.selector');
+    	var menu = $('div#JS_hide_city_menu_11');
+    	choose.hover (function ()
+    	{
+    		box.show ();
+    		menu.addClass('hover');
+    		search.val (TIP);
+    	}, function () 
+    	{
+    		box.hide ();
+    		menu.removeClass('hover');
+    	});
+    	
+    	box.hover (function ()
+    	{
+    		box.show ();
+    		menu.addClass('hover');
+    	}, function ()
+    	{
+    		box.hide ();
+    		menu.removeClass('hover');
+    	});
+    	
+    	var elem = !$.support.chrome ? document.documentElement : document.body;
+    	var doc = $(document);
+    	var scrollBar = $('div.scrollBar');
+    	var tableList = $('table#JS_header_city_list');
+    	var bar = $('span#JS_header_city_bar');
+    	var bargap = scrollBar.height() - bar.height();
+    	var dh = 191 + bar.height()/2 + elem.scrollTop - parseFloat (bar.css ('margin-top'));
+    	var citychar = $('div#JS_header_city_char');
+		var chars = $(words.split('')), len = chars.length - 3;
+		var citylist = tableList.find('tbody');
+		var tablegap = 0;
+    	scrollBar.click (function (e) 
+    	{
+    		e = e || window.event;
+    		if (tablegap == 0)
+            {
+				for ( var i = 0; i < len; i++)
+		        {
+			        tablegap += tableList.find('tr:eq('+i+')').height();
+	        	}
+            }
+    		var offsetY = e.clientY + elem.scrollTop - dh;
+		    offsetY = offsetY < 0 ? 0 : offsetY;
+	    	offsetY = offsetY > bargap ? bargap : offsetY;
+	    	bar.css ('margin-top', offsetY + 'px');
+	    	tableList.css ('margin-top', -tablegap * offsetY / bargap + 'px');
+			INDEX = len * offsetY / bargap;
+		    return destroy (e);
+    	});
+    	doc.mousedown (function (e)
+    	{
+    		e = e || window.event;
+    		var target = e.target;
+    		if (target !== choose[0] && box.find($(target)).length === 0 && box.is(':visible'))
+            {
+	            box.hide();
+            }
+    	}).mouseup (function (e) 
+    	{
+    		e = e || window.event;
+    		$(this).unbind('mousemove');
+    		return destroy (e);
+    	});
+    	var hotcity = $(hot);
+	    var city = $('div#JS_header_city_hot');
+	    var currentCity = $('#JS_city_current_city'), siteName = $('#DY_site_name');
+		hotcity.each (function (i, eleDom)
+	    {
+		    var a = $ ('<a href="#"></a>');
+		    a.click (function ()
+		    {
+		    	var txt = $(this).text();
+		    	currentCity.text (txt);
+		    	siteName.text (txt);
+
+		    			    	
+		    	for(i=0; i<hot.length; i++)
+		    	{
+			    	if(hot[i]==txt) location.href = 'http://'+domain[i]+'.mopou.com';
+			    }
+		    });
+		    if (i == 0)
+		    {
+			    a.html ('<strong>' + eleDom + '</strong>');
+		    }
+		    else
+		    {
+			    a.text (eleDom);
+		    }
+		    city.append(a);
+	    });
+		
+		bar.mousedown (function (e) 
+		{
+			e = e || window.event;
+			if (tablegap == 0)
+            {
+				for ( var i = 0; i < len; i++)
+		        {
+			        tablegap += tableList.find('tr:eq('+i+')').height();
+	        	}
+            }
+			var me = $(this);
+			var delta = e.clientY - elem.scrollTop - parseFloat (me.css('margin-top'));
+			doc.mousemove (function (evt) 
+			{
+				evt = evt || window.event;
+				var y = evt.clientY - elem.scrollTop - delta;
+				y = y < 0 ? 0 : y;
+				y = y > bargap ? bargap : y;
+				me.css ('margin-top', y + 'px');
+				tableList.css ('margin-top', -tablegap * y / bargap + 'px');
+				INDEX = len * y / bargap;
+				return destroy (evt);
+			});
+			return destroy (e);
+		});
+		
+		chars.each (function (i, dom)
+		{
+			var a = $('<a href="#"></a>');
+			a.mouseover (function ()
+			{ 
+				var h = 0;
+				var index = $(this).index ('div#JS_header_city_char a');
+				INDEX = index = index > len ? len : index;
+				for ( var i = 0; i < index; i++)
+                {
+	                h += tableList.find('tr:eq('+i+')').height();
+                }
+				tableList.animate(
+				{
+					'margin-top': -h + 7 + 'px'
+				}, 'slow');
+				
+				bar.animate (
+				{
+					'margin-top': index * bargap / len + 'px'
+				}, 'slow');
+			}).mouseout(function ()
+			{
+				tableList.stop();
+				bar.stop();
+				INDEX = parseFloat (bar.css('margin-top')) * len / bargap;
+			});
+			a.text (dom);
+			citychar.append(a);
+			
+			var tr = $('<tr><th><div>' + dom + '</div></th><td></td></tr>');
+			var td = tr.children('td');
+			var d = $(data[i]);
+			d.each (function (j, eleDom)
+			{
+				var a = $('<a href="#">' + eleDom + '</a>');
+				a.click (function ()
+				{
+					var txt = $(this).text();
+			    	currentCity.text (txt);
+			    	siteName.text (txt + '站');
+				});
+				td.append(a);
+			});
+			citylist.append (tr);
+		});
+		/*
+		var scrollBody = $('div.scrollBody')[0];
+		if (!$.support.mozilla)
+        {
+			scrollBody.onmousewheel = function (e) { mouseWheel (e, false, tableList, bar, len, bargap); };
+        }
+	    else
+	    {
+	    	scrollBody.addEventListener ('DOMMouseScroll', function (e) { mouseWheel (e, true, tableList, bar, len, bargap) }, false); 
+		}
+		*/
+    });
+    
+    var INDEX = 0;
+    function mouseWheel (e, isMozilla, tableList, bar, len, bargap)
+	{
+		e = e || window.event;
+		var h = 0;
+		for ( var i = 0; i < INDEX; i++)
+        {
+            h += tableList.find('tr:eq('+i+')').height();
+        }
+		tableList.css('margin-top', -h + 7 + 'px');
+		bar.css('margin-top', INDEX * bargap / len + 'px')
+     	if (isMozilla)
+        {
+     		if (e.detail < 0)
+            {
+     			INDEX--;
+     			INDEX = INDEX < 0 ? 0 : INDEX;
+            }
+        	else 
+        	{
+        		// down
+        		INDEX++;
+     			INDEX = INDEX > len ? len : INDEX;
+    		}
+        }
+     	else 
+     	{
+     		//down
+     		if (e.wheelDelta < 0)
+            {
+     			INDEX++;
+     			INDEX = INDEX > len ? len : INDEX;
+            }
+	    	else
+	    	{
+	    		INDEX--;
+     			INDEX = INDEX < 0 ? 0 : INDEX;
+			}	
+		}
+    	return destroy (e);
+	}
+    var destroy = function (event)
+    {
+	    if (!!$.support.msie)
+	    {
+		    event.returnValue = false;
+		    event.cancelBubble = true;
+	    }
+	    else
+	    {
+	    	event.preventDefault ();
+			event.stopPropagation ();
+	    }
+	    return false;
+    }
+</script>
+		
+		
+		<ul class="nav">
+			<li class="home">
+				<a href="../../index.html"  class="">
+				</a>
+			</li>
+			<li class="online">
+				<a href="../site/reservation.html" class="">
+				</a>
+			</li>
+			<li class="price">
+				<a href="../../www/site/user.html" class="">
+				</a>
+		</ul>
+		
+	
+		
+	</div>
+</div>
+<!--header end-->
+<div class="topbanner">
+	<div class="warp retive">
+    <div  class="alert_plane">
+      <div class="alert_from">
+			<a class="alert_close" href="javascript:;"></a>
+			<p>
+    		    <input type="text" onclick="if(this.value=='请输入您的账号')this.value=''" onfocus="this.select()" onmouseout="if(this.value=='')this.value='请输入您的账号'" onmouseover="this.focus()" value="请输入您的账号" maxlength="11" id="user_telephone" class="mobile">
+    		</p>
+ 			<p>
+    		    <input type="text" onclick="if(this.value=='请输入您的密码')this.value=''" onfocus="this.select()" onmouseout="if(this.value=='')this.value='请输入您的密码'" onmouseover="this.focus()" value="请输入您的密码" maxlength="11" id="user_telephone" class="mobile">
+    		</p>
+    		<p>
+    			<a style="dismargin:10px 0px 0px 0px;" id="loginBtn" class="submitbtn" href="#">登录</a>
+    		</p>
+    		<input type="hidden" id="checkCode">
+    	</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.select').removeClass('select');
+    	$('.recharge a').addClass('select');
+		$('#loginBtn').click(function(){
+			var user_telephone=$.trim($('#user_telephone').val());
+			var check_code=$.trim($('#checkCode').val());
+			var login_code=$.trim($('#loginCode').val());
+			if(user_telephone=='' || user_telephone=='请输入您的账号'){
+				alert('请输入手机号码');
+				return false;
+			}
+			var reg=/^1[3|4|5|8][0-9]\d{8}$/;
+			if(!reg.test(user_telephone)){
+				alert('请输入正确的手机号码');
+				return false;
+			}
+			if(login_code=='' || login_code=='请输入验证码'){
+				alert('请输入验证码');
+				return false;
+			}
+			var url="/api/data/?ac=login&verifyCode="+login_code+"&phone="+user_telephone;
+			$.getJSON(url,function(msg){
+				if(msg.status == '200'){
+					location.href='/www/site/user';
+				}else{
+					alert('登录失败');	
+				}
+			});
+		});
+		$('#getCode').click(function(){
+			var user_telephone=$.trim($('#user_telephone').val());
+			if(user_telephone=='' || user_telephone=='请输入您的账号'){
+				alert('请输入手机号码');
+				return false;
+			}
+			var reg=/1[3|4|5|8][0-9]\d{8}/;
+			if(!reg.test(user_telephone)){
+				alert('请输入正确的手机号码');
+				return false;
+			}
+			var url="/api/data/?ac=verifyCode&type=login&phone="+user_telephone;
+			$.getJSON(url, function(msg){
+				if(msg.status == '200') alert('发送成功, 请查看手机');
+				else  alert('发送失败');
+			});
+		});
+		
+	});
+</script><!--footer star-->
+<div class="footer">
+	<div class="warp">
+	<div class='redlinecolor both w960 divcen mt30 he2' style='width:1000px;'></div>
+		<p class="footnav">
+			<a href="../../www/site/aboutus.html">关于我们</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="../../www/site/contactus.html">联系我们</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="../../www/site/solve.html">常见问题</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</p>
+	</div>
+</div>
+</body>
+</html>

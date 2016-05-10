@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="user-scalable=0"/>
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="telephone=no" name="format-detection"/>
+<title>智慧社区家政服务平台</title>
+<meta name="keywords" content="智慧社区家政服务平台" /><meta name="description" content="智慧社区家政服务平台" />
+<link type="text/css" rel="stylesheet" href="css/base.css"/>
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="js/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="js/jq.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/zh.js"></script>
+<script src="js/jqSelect.js"></script>
+</head>
+<body>
+     <!--header star-->
+<div class="header">
+	<div class="warp">
+		<a href="index.html"  class="left">
+		    <img height="70" width="230" src="uploads/item/151112-105545-6336.png">
+		</a>
+  <div >
+    <div></div>
+    <div class="city-select cut_handdler Left">
+      <a href="www/site/user.html" class="common-bg selector">居民登录</a>
+      <a href="www/site/user.html" class="common-bg selector">家政服务公司登录</a>
+      <a href="design.html" class="common-bg selector">家政服务公司注册</a>
+      <div>
+        <div>
+          <div class="showPanel showPanel2 clearfix">
+            <div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="common-bg city-logo"></span>
+  </div>
+	<script type="text/javascript">
+	var words = 'ABCDEFGHJKLMNPQRSTWXYZ';
+	var hot  = [];
+	var domain = [];
+	hot.push('主站');domain.push('jiazheng');hot.push('威尼斯小区');domain.push('venice');    var data = [];
+    var TIP = '输入城市名';
+    jQuery (function ($)
+    {
+    	var search = $(':text#JS_search_city_input_header');
+    	search.focus(function () 
+    	{
+    		$(this).val('');
+    	});
+    	
+    	var box = $('div#JS_header_city_bar_box');
+    	var choose = $('a.common-bg.selector');
+    	var menu = $('div#JS_hide_city_menu_11');
+    	choose.hover (function ()
+    	{
+    		box.show ();
+    		menu.addClass('hover');
+    		search.val (TIP);
+    	}, function () 
+    	{
+    		box.hide ();
+    		menu.removeClass('hover');
+    	});
+    	
+    	box.hover (function ()
+    	{
+    		box.show ();
+    		menu.addClass('hover');
+    	}, function ()
+    	{
+    		box.hide ();
+    		menu.removeClass('hover');
+    	});
+    	
+    	var elem = !$.support.chrome ? document.documentElement : document.body;
+    	var doc = $(document);
+    	var scrollBar = $('div.scrollBar');
+    	var tableList = $('table#JS_header_city_list');
+    	var bar = $('span#JS_header_city_bar');
+    	var bargap = scrollBar.height() - bar.height();
+    	var dh = 191 + bar.height()/2 + elem.scrollTop - parseFloat (bar.css ('margin-top'));
+    	var citychar = $('div#JS_header_city_char');
+		var chars = $(words.split('')), len = chars.length - 3;
+		var citylist = tableList.find('tbody');
+		var tablegap = 0;
+    	scrollBar.click (function (e) 
+    	{
+    		e = e || window.event;
+    		if (tablegap == 0)
+            {
+				for ( var i = 0; i < len; i++)
+		        {
+			        tablegap += tableList.find('tr:eq('+i+')').height();
+	        	}
+            }
+    		var offsetY = e.clientY + elem.scrollTop - dh;
+		    offsetY = offsetY < 0 ? 0 : offsetY;
+	    	offsetY = offsetY > bargap ? bargap : offsetY;
+	    	bar.css ('margin-top', offsetY + 'px');
+	    	tableList.css ('margin-top', -tablegap * offsetY / bargap + 'px');
+			INDEX = len * offsetY / bargap;
+		    return destroy (e);
+    	});
+    	doc.mousedown (function (e)
+    	{
+    		e = e || window.event;
+    		var target = e.target;
+    		if (target !== choose[0] && box.find($(target)).length === 0 && box.is(':visible'))
+            {
+	            box.hide();
+            }
+    	}).mouseup (function (e) 
+    	{
+    		e = e || window.event;
+    		$(this).unbind('mousemove');
+    		return destroy (e);
+    	});
+    	var hotcity = $(hot);
+	    var city = $('div#JS_header_city_hot');
+	    var currentCity = $('#JS_city_current_city'), siteName = $('#DY_site_name');
+		hotcity.each (function (i, eleDom)
+	    {
+		    var a = $ ('<a href="#"></a>');
+		    a.click (function ()
+		    {
+		    	var txt = $(this).text();
+		    	currentCity.text (txt);
+		    	siteName.text (txt);
+
+		    			    	
+		    	for(i=0; i<hot.length; i++)
+		    	{
+			    	if(hot[i]==txt) location.href = 'http://'+domain[i]+'.mopou.com';
+			    }
+		    });
+		    if (i == 0)
+		    {
+			    a.html ('<strong>' + eleDom + '</strong>');
+		    }
+		    else
+		    {
+			    a.text (eleDom);
+		    }
+		    city.append(a);
+	    });
+		
+		bar.mousedown (function (e) 
+		{
+			e = e || window.event;
+			if (tablegap == 0)
+            {
+				for ( var i = 0; i < len; i++)
+		        {
+			        tablegap += tableList.find('tr:eq('+i+')').height();
+	        	}
+            }
+			var me = $(this);
+			var delta = e.clientY - elem.scrollTop - parseFloat (me.css('margin-top'));
+			doc.mousemove (function (evt) 
+			{
+				evt = evt || window.event;
+				var y = evt.clientY - elem.scrollTop - delta;
+				y = y < 0 ? 0 : y;
+				y = y > bargap ? bargap : y;
+				me.css ('margin-top', y + 'px');
+				tableList.css ('margin-top', -tablegap * y / bargap + 'px');
+				INDEX = len * y / bargap;
+				return destroy (evt);
+			});
+			return destroy (e);
+		});
+		
+		chars.each (function (i, dom)
+		{
+			var a = $('<a href="#"></a>');
+			a.mouseover (function ()
+			{ 
+				var h = 0;
+				var index = $(this).index ('div#JS_header_city_char a');
+				INDEX = index = index > len ? len : index;
+				for ( var i = 0; i < index; i++)
+                {
+	                h += tableList.find('tr:eq('+i+')').height();
+                }
+				tableList.animate(
+				{
+					'margin-top': -h + 7 + 'px'
+				}, 'slow');
+				
+				bar.animate (
+				{
+					'margin-top': index * bargap / len + 'px'
+				}, 'slow');
+			}).mouseout(function ()
+			{
+				tableList.stop();
+				bar.stop();
+				INDEX = parseFloat (bar.css('margin-top')) * len / bargap;
+			});
+			a.text (dom);
+			citychar.append(a);
+			
+			var tr = $('<tr><th><div>' + dom + '</div></th><td></td></tr>');
+			var td = tr.children('td');
+			var d = $(data[i]);
+			d.each (function (j, eleDom)
+			{
+				var a = $('<a href="#">' + eleDom + '</a>');
+				a.click (function ()
+				{
+					var txt = $(this).text();
+			    	currentCity.text (txt);
+			    	siteName.text (txt + '站');
+				});
+				td.append(a);
+			});
+			citylist.append (tr);
+		});
+		/*
+		var scrollBody = $('div.scrollBody')[0];
+		if (!$.support.mozilla)
+        {
+			scrollBody.onmousewheel = function (e) { mouseWheel (e, false, tableList, bar, len, bargap); };
+        }
+	    else
+	    {
+	    	scrollBody.addEventListener ('DOMMouseScroll', function (e) { mouseWheel (e, true, tableList, bar, len, bargap) }, false); 
+		}
+		*/
+    });
+    
+    var INDEX = 0;
+    function mouseWheel (e, isMozilla, tableList, bar, len, bargap)
+	{
+		e = e || window.event;
+		var h = 0;
+		for ( var i = 0; i < INDEX; i++)
+        {
+            h += tableList.find('tr:eq('+i+')').height();
+        }
+		tableList.css('margin-top', -h + 7 + 'px');
+		bar.css('margin-top', INDEX * bargap / len + 'px')
+     	if (isMozilla)
+        {
+     		if (e.detail < 0)
+            {
+     			INDEX--;
+     			INDEX = INDEX < 0 ? 0 : INDEX;
+            }
+        	else 
+        	{
+        		// down
+        		INDEX++;
+     			INDEX = INDEX > len ? len : INDEX;
+    		}
+        }
+     	else 
+     	{
+     		//down
+     		if (e.wheelDelta < 0)
+            {
+     			INDEX++;
+     			INDEX = INDEX > len ? len : INDEX;
+            }
+	    	else
+	    	{
+	    		INDEX--;
+     			INDEX = INDEX < 0 ? 0 : INDEX;
+			}	
+		}
+    	return destroy (e);
+	}
+    var destroy = function (event)
+    {
+	    if (!!$.support.msie)
+	    {
+		    event.returnValue = false;
+		    event.cancelBubble = true;
+	    }
+	    else
+	    {
+	    	event.preventDefault ();
+			event.stopPropagation ();
+	    }
+	    return false;
+    }
+</script>
+		
+		
+		
+
+      <ul class="nav">
+      <li class="home">
+        <a href="index.html"  class="">
+        </a>
+      </li>
+      <li class="online">
+        <a href="www/site/reservation.html" class="">
+        </a>
+      </li>
+      <li class="price">
+        <a href="www/site/user.html" class="">
+        </a>
+        </li>
+    </ul>
+		
+	
+		
+	</div>
+</div>
+<!--header end-->
+<style type="text/css">
+.topbanner {
+    background: url("uploads/item/151223-114102-37981.jpg") no-repeat scroll center 0 transparent;
+}
+</style>
+<div class="topbanner">
+        <div class="warp retive">
+                <div class="bannercontent">
+                        <p class="bannerfont">
+                        </p>
+                        <p class="i">家政服务公司严格审核；下单后即享家政保险,省心放心~</p>
+                        <div class="bannerform">
+                                <div class="time">
+                                        <i class="dateicon"></i>
+                                        <input type="text" value="什么时候服务"  readonly="readonly" name='serviceDate' class="dateinput" id="date"  onmouseout="if(this.value=='')this.value='什么时候服务'" onfocus="this.select()" onclick="if(this.value=='什么时候服务')this.value=''"/>
+                                        <div class="timexialam">
+                                                <div id="datetimeselect" class="selectbox01">
+                                                        <div class="cartes" id='carter'>
+                                                                <input type="text" value="如：9：00" class="listTxt" readonly="readonly"=>
+                                                                <div class="listBtn"><b></b></div>
+                                                                <input type="hidden" value="s5" class="listVal">
+                                                        </div>
+                                                        <div class="lists" >
+                                                                <ul class="list">
+                   <li id="s1" class="cwhite" onclick="setTime(this.innerHTML)">7:30</li>
+                  <li id="s2" class="cwhite" onclick="setTime(this.innerHTML)">8:00</li>
+                  <li id="s3" class="cwhite" onclick="setTime(this.innerHTML)">8:30</li>
+                  <li id="s4" class="cwhite" onclick="setTime(this.innerHTML)">9:00</li>
+                  <li id="s5" class="cwhite" onclick="setTime(this.innerHTML)">9:30</li>
+                  <li id="s6" class="cwhite" onclick="setTime(this.innerHTML)">10:00</li>
+                  <li id="s7" class="cwhite" onclick="setTime(this.innerHTML)">10:30</li>
+                  <li id="s8" class="cwhite" onclick="setTime(this.innerHTML)">11:00</li>
+                  <li id="s9" class="cwhite" onclick="setTime(this.innerHTML)">11:30</li>
+                  <li id="s10" class="cwhite" onclick="setTime(this.innerHTML)">12:00</li>
+                  <li id="s11" class="cwhite" onclick="setTime(this.innerHTML)">12:30</li>
+                  <li id="s12" class="cwhite" onclick="setTime(this.innerHTML)">13:00</li>
+                  <li id="s13" class="cwhite" onclick="setTime(this.innerHTML)">13:30</li>
+                  <li id="s14" class="cwhite" onclick="setTime(this.innerHTML)">14:00</li>
+                  <li id="s15" class="cwhite" onclick="setTime(this.innerHTML)">14:30</li>
+                  <li id="s16" class="cwhite" onclick="setTime(this.innerHTML)">15:00</li>
+                  <li id="s17" class="cwhite" onclick="setTime(this.innerHTML)">15:30</li>
+                  <li id="s18" class="cwhite" onclick="setTime(this.innerHTML)">16:00</li>
+                  <li id="s19" class="cwhite" onclick="setTime(this.innerHTML)">16:30</li>
+                  <li id="s20" class="cwhite" onclick="setTime(this.innerHTML)">17:00</li>
+                  <li id="s21" class="cwhite" onclick="setTime(this.innerHTML)">17:30</li>
+                  <li id="s22" class="cwhite" onclick="setTime(this.innerHTML)">18:00</li>
+                  <li id="s23" class="cwhite" onclick="setTime(this.innerHTML)">18:30</li>
+                  <li id="s24" class="cwhite" onclick="setTime(this.innerHTML)">19:00</li>
+                  <li id="s25" class="cwhite" onclick="setTime(this.innerHTML)">19:30</li>
+                  <li id="s26" class="cwhite" onclick="setTime(this.innerHTML)">20:00</li>
+                                                                </ul>
+                                                        </div>
+                                                        <input id='serviceTime' type="hidden"/>
+                                                </div>
+                                        </div>
+                                </div>
+                                <p class="address">
+                                        <span class="addiconxl" id="addspan">
+                                                广东省XX市                                       </span>
+                                           <input id='address' type="input" value="请填写具体地址" onBlur="if(this.value=='') this.value='请填写具体地址';" onFocus="if(this.value=='请填写具体地址') this.value='';"/>
+                                </p>
+                        </div>
+                        <a class="reserve" href="www/site/reservation.html" id='quickStart' >
+                                快速预约
+                        </a>
+                </div>
+        </div>
+</div>
+ 
+<div class="layout border-top">
+    
+        
+    <div class="ullist clearfix">
+                  <ul class="borderright" >
+            <li class="center">
+                <a href="/www/site/reservation?service=5">
+                    <img src="uploads/service/20150331-140759-9713.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>家电清洗</span>
+            </li>
+             <li>
+              <strong>120分钟专业清洗</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=5">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright" >
+            <li class="center">
+                <a href="/www/site/reservation?service=31">
+                    <img src="uploads/service/20150409-111014-1395.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>日常保洁</span>
+            </li>
+             <li>
+              <strong>自带清洁工具包，一对一管家式服务</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=31">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright"  style="border-right: 0px;">
+            <li class="center">
+                <a href="/www/site/reservation?service=6">
+                    <img src="uploads/service/20141105-150140-8093.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>家居保养</span>
+            </li>
+             <li>
+              <strong>专业设备，家具家居深度消毒养护</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=6">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop" >
+            <li class="center">
+                <a href="/www/site/reservation?service=7">
+                    <img src="uploads/service/20141105-151320-9078.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>管道疏通</span>
+            </li>
+             <li>
+              <strong>瞬间解决各种管道堵塞</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=7">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop" >
+            <li class="center">
+                <a href="/www/site/reservation?service=8">
+                    <img src="uploads/service/20150331-140855-5587.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>干洗服务</span>
+            </li>
+             <li>
+              <strong>干洗服务, 干干净净每一天</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=8">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop"  style="border-right: 0px;">
+            <li class="center">
+                <a href="/www/site/reservation?service=15">
+                    <img src="uploads/service/20150331-140937-6120.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>鲜花服务</span>
+            </li>
+             <li>
+              <strong>鲜花送达 省时 省钱</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=15">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop" >
+            <li class="center">
+                <a href="/www/site/reservation?service=18">
+                    <img src="uploads/service/20150331-141036-8031.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>月嫂 看护</span>
+            </li>
+             <li>
+              <strong>月嫂 看护</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=18">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop" >
+            <li class="center">
+                <a href="/www/site/reservation?service=24">
+                    <img src="uploads/service/20150331-141339-6845.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>家电维修</span>
+            </li>
+             <li>
+              <strong>您的居家小帮手</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=24">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop"  style="border-right: 0px;">
+            <li class="center">
+                <a href="/www/site/reservation?service=25">
+                    <img src="uploads/service/20150331-141306-6737.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>开锁</span>
+            </li>
+             <li>
+              <strong>您的安全，我们的责任</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=25">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop" >
+            <li class="center">
+                <a href="/www/site/reservation?service=26">
+                    <img src="uploads/service/20150331-141501-4945.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>重体力</span>
+            </li>
+             <li>
+              <strong>解决您的后顾之忧</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=26">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop" >
+            <li class="center">
+                <a href="/www/site/reservation?service=19">
+                    <img src="uploads/service/20150331-141535-7687.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>住家保姆</span>
+            </li>
+             <li>
+              <strong>帮您节省大量劳动时间</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=19">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop"  style="border-right: 0px;">
+            <li class="center">
+                <a href="/www/site/reservation?service=32">
+                    <img src="uploads/service/20150417-103821-5405.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>新居搬迁</span>
+            </li>
+             <li>
+              <strong>让您的家洁净如新</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=32">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop" >
+            <li class="center">
+                <a href="/www/site/reservation?service=44">
+                    <img src="uploads/service/20150603-145901-2739.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>老人看护</span>
+            </li>
+             <li>
+              <strong>失能老人助浴服务</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=44">立即预约</a>
+            </li>
+          </ul>
+                  <ul class="borderright bordertop" >
+            <li class="center">
+                <a href="/www/site/reservation?service=54">
+                    <img src="uploads/service/20151114-133717-2648.jpg" style="cursor: pointer;">
+                </a>
+            </li>
+            <li>
+              <span>地方保洁需求</span>
+            </li>
+             <li>
+              <strong>简介2</strong>
+            </li>
+            <li class="serviceA clearfix">
+                <a href="/www/site/reservation?service=54">立即预约</a>
+            </li>
+          </ul>
+            </div>
+ 
+    <!--center star-->
+    <div class="warp">
+        <div class="caption clearfix m8">
+                <p class="wzyy"></p>
+                <p></p>
+                <p class="rjxz"></p>
+                
+        </div>
+
+    </div>
+    <!--center end-->
+    
+<div>
+        <form action="/www/site/reservation" id="form1" name="form1" method="post" style="display:none">
+                <input type="text" name="sdate" id='sdate'/>
+                <input type="text" name="stime" id="stime"/>
+                <input type="text" name="saddress" id="saddress"/>
+                <input type="text" name="scity" id="scity"/>
+        </form>
+</div>
+<!--footer end-->
+<script type="text/javascript">
+function setTime(serviceTime){
+        $('#serviceTime').val(serviceTime);
+        $('#stime').val(serviceTime);
+        $(".lists").hide();
+}
+ 
+function setCity(city){
+        $('#city').val(city);
+        $(".alertplane").slideUp('fast',function(){});
+        $("#addspan").removeClass("addicon").addClass("addiconxl");
+        /*
+        if(city==5303){
+                $('#addspan').html('北京');
+        }else{
+        */
+                $('#addspan').html('北京');
+}
+ 
+$(function(){
+        $('.select').removeClass('select');
+        $('.home a').addClass('select');
+        //日历
+        $( "#date" ).datepicker({
+                numberOfMonths: 1,  //显示两个月
+        minDate: 0,  //从当前日期起可选
+        dateFormat: 'yy-mm-dd',
+        maxDate:6,
+        minDate:0
+        });
+        /*
+        //地址下拉
+        $("#addspan").on("click",function(){
+                if($(this).hasClass("addicon")){
+                        $(this).removeClass("addicon").addClass("addiconxl");
+                        $(".alertplane").slideUp('fast',function(){
+                        });
+                }else{
+                        $(this).removeClass("addiconxl").addClass("addicon");
+                        $(".alertplane").slideDown('fast',function(){
+                        });
+                        window.event.cancelBubble = true;
+                        event.stopPropagation();
+                }
+        });
+        */
+    //时间下拉
+    $(document).ready(function(){
+                $("#datetimeselect").jQSelect({});
+                $('#quickStart').click(function(){
+                        var date=document.getElementsByName('serviceDate');
+                        var address=$('#address').val();
+                        var serviceTime=$('#serviceTime').val();
+                        if(date!=null){
+                                for(var i=0;i<date.length;i++){
+                                        var serviceDate=date[i].value;
+                                }
+                        }
+                        var city=$('#city').val();
+                        $('#scity').val(city);
+                        $('#saddress').val(address);
+                        $('#sdate').val(serviceDate);
+                        $('#form1').submit();
+                });
+ 
+        });
+ 
+});
+ 
+$('#carter').mouseenter(function(){
+        var dateVal=$('#date').val();
+        var reg=/[\u4e00-\u9fa5]+/g;
+        if(dateVal!='什么时候服务'){
+                var dateVal=dateVal.replace(reg,'-');
+                str=dateVal.substr(0,10)+" 23:59:59";
+                var new_str = str.replace(/:/g,'-');
+                new_str = new_str.replace(/ /g,'-');
+                var arr = new_str.split("-");
+                var datum = new Date(Date.UTC(arr[0],arr[1]-1,arr[2],arr[3]-8,arr[4],arr[5]));
+                var date=datum.getTime()/1000
+                var nowdate= new Date().getTime()/1000;
+                $('.list').html(' ');
+                $.post('/www/site/ChooseRealServerTime',{date: $("#date").val()},function(msg,status){
+                        //console.info(msg);
+                        $('.lists').show();
+                        $('.list').html(msg);
+                });
+        }else{
+                //console.info("333");
+                $.post('/www/site/ChooseRealServerTime',{},function(msg,status){
+                        //console.info(msg);
+                        $('.lists').show();
+                        $('.list').html(msg);
+                        
+                });
+        }
+});
+ 
+        $('.lists').mouseover(function(){
+                $('.list>li').each(function(){
+                        $(this).mouseover(function(){
+                                $(this).addClass('cgray');
+                        });
+                        $(this).mouseout(function(){
+                                $(this).removeClass('cgray');
+                        });
+                        $(this).click(function(){
+                                $('.listTxt').val($(this).text());
+                        });
+                });
+        });
+ 
+        $('#date').change(function(){
+                $('.listTxt').val("如：9：00");
+                $('#serviceTime').val('');
+                $('#stime').val('');
+        });
+</script><!--footer star-->
+<div class="footer">
+	<div class="warp">
+	<div class='redlinecolor both w960 divcen mt30 he2' style='width:1000px;'></div>
+		<p class="footnav">
+			<a href="/www/site/aboutus">关于我们</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/www/site/contactus">联系我们</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/www/site/solve">常见问题</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</p>
+	</div>
+</div>
+</body>
+</html>
